@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <button @click="count1">count1</button>
+  <button @click="count2">count2</button>
+  <button @click="count3(count)">count3</button>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    count: 1
+  },
+  methods: {
+    //thisはVueインスタンスを参照する
+    count1() {
+      console.log('カウントは' + this.count + 'です。');
+    },
+    //thisはVueインスタンスの外側のスコープとなるため、undefinedになる
+    count2: (count) => console.log('カウントは' + this.count + 'です。'),
+    //式で引数を渡す場合はOK
+    count3: (count) => console.log('カウントは' + count + 'です。'),
+  }
+});
+</script>
+</body>
+</html>

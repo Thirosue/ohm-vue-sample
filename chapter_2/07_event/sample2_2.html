@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <input id="field" type="text" name="namae" size="40" maxlength="20">
+</div>
+
+<script>
+  var field = document.getElementById('field');
+
+  field.addEventListener('keydown', function () {
+    console.log('入力開始: ' + field.value.length + '文字入力しています...');
+  });
+
+  field.addEventListener('keyup', function () {
+    console.log('入力終了: ' + field.value.length + '文字入力しています...');
+  });
+</script>
+</body>
+</html>

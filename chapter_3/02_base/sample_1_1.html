@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app1">
+  {{ message1 }}
+</div>
+<div id="app2">
+  {{ message2 }}
+</div>
+<div id="app3">
+  {{ message1 }} <!-- インスタンスが作成されていないため、動作しない -->
+</div>
+<script>
+  new Vue({
+    el: '#app1',
+    data: {
+      message1: 'This is Vue Application 1!'
+    }
+  })
+  new Vue({
+    el: '#app2',
+    data: {
+      message2: 'This is Vue Application 2!'
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="text" name="name" v-model="name">
+  <p>入力した名前は {{name}} です。</p>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      name: 'guest'
+    }
+  });
+</script>
+</body>
+</html>

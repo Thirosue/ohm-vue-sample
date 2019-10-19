@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button class="button" v-on:click="logging">logging</button>
+  </div>
+<script>
+new Vue({
+  el: '#app',
+  methods: {
+    logging(e) {
+      console.log(e);
+    }
+  }
+});
+</script>
+</body>
+</html>

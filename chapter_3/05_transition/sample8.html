@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    .v-enter-active, .v-leave-active {
+      transition: opacity 1s;
+    }
+    .v-enter, .v-leave-to {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <transition mode="out-in"> <!-- トランジションアウト -> インの順番でトランジションが発生 -->
+    <button v-if="toggle" key="on" v-on:click="toggle = !toggle">
+      On
+    </button>
+    <button v-else key="off" v-on:click="toggle = !toggle">
+      Off
+    </button>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    toggle: true
+  }
+});
+</script>
+</body>
+</html>

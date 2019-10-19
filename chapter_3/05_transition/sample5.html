@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+  .box {
+    width : 200px;
+    text-align: center;
+  }
+  .bounce-enter-active {
+    animation: bounce-in 1s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in 1s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.7);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  </style>
+</head>
+<body>
+<div id="app" class="box">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <transition name="bounce">
+    <p v-if="show">Hello! Vue.js!!</p>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    show: true
+  }
+});
+</script>
+</body>
+</html>

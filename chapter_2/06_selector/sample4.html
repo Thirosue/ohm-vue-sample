@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <h1>セレクター</h1>
+  <div id="result">
+    <ul>
+      <li id="one" class='list one'>1つ目</li>
+      <li id="two" class='list two'>2つ目</li>
+      <li id="three" class='list three'>3つ目</li>
+      <li class='list four'>4つ目</li>
+    </ul>
+  </div>
+</div>
+<script>
+  var list = document.querySelectorAll('#result li'); //#resultのliを取得
+  console.log(list.item(0));
+  var list2 = document.querySelectorAll('.container #result li'); //3つ以上連結も可能
+  console.log(list2.item(1));
+</script>
+</body>
+</html>

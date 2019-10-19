@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>
+</head>
+<body>
+<div id="app">
+  2019年
+  <select v-model="month">
+    <option v-for="value in 12">{{value}}</option>
+  </select>
+  月
+  <select v-model="day">
+    <option v-for="value in 31">{{value}}</option>
+  </select>
+  日
+  <p v-if="msg">{{msg}}</p><!--エラーの際、エラー文言を表示-->
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    month: '',
+    day: '',
+    msg: null
+  },
+  computed: {
+    //算出プロパティで月、日の合成オブジェクト（date）を生成し、いずれかが変更された場合、dateプロパティが評価されるようにする
+    date() {
+      return {
+        month: this.month,
+        day: this.day
+      }
+    }
+  },
+  watch: {
+    //dateプロパティをウオッチし、両方が選択された場合、日付の有効性チェックを実施する
+    date(value) {
+      if(!(value.month && value.day)) return; //両方選択された場合のみ日付チェック
+      var month = ('00' + value.month).slice(-2);
+      var day = ('00' + value.day).slice(-2);
+      var date = '2019' + month + day;
+      console.log('選択した日付 : ' + date);
+      if(moment(date).isValid()) { //moment.jsを利用し、チェックを行う。
+        this.msg = null;
+      } else {
+        this.msg = '入力された日付は無効です';
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

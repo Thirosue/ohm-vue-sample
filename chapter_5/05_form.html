@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Form</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://yubinbango.github.io/yubinbango-core/yubinbango-core.js"></script>
+  <style>
+    form {
+      width: 50%;
+      margin: 0 auto;
+    }
+    .form-row {
+      display: flex;
+      margin-top: 2px;
+    }
+    .form-row button {
+      flex: auto;
+      margin-left: 10px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-block;
+      background: #f36565;
+      color: #fdfdfd;
+      padding: 4px 8px;
+      border-radius: 2px;
+      margin-left: .5em;
+      position: relative;
+      top: -1px;
+    }
+    .errors {
+      color: red;
+      margin: 10px 0 0;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <main class="main">
+    <section class="block">
+      <h1 class="block-title">お問い合わせ</h1>
+      <div class="block-body">
+        <form action="" class="form">
+          <fieldset>
+            <div class="form-group">
+              <label for="name">お名前<span class="badge">必須</span></label>
+              <input type="text" name="name" id="name" v-model="name">
+              <errors :errors="errors.name"></errors>
+            </div>
+
+            <div class="form-group">
+              <label for="zip">郵便番号<span class="badge">必須</span></label>
+              <div class="form-row">
+                <input type="text" name="zip" id="zip" v-model="zip" placeholder="101-0064">
+                <button class="button-outline" @click.prevent="zipToAddress">住所を入力</button>
+              </div>
+              <errors :errors="errors.zip"></errors>
+            </div>
+
+            <div class="form-group">
+              <label for="prefecture">都道府県<span class="badge">必須</span></label>
+              <select name="prefecture" id="prefecture" v-model="prefecture">
+                <option value="">選択してください</option>
+                <option value="北海道">北海道</option>
+                <option value="青森県">青森県</option>
+                <option value="岩手県">岩手県</option>
+                <option value="宮城県">宮城県</option>
+                <option value="秋田県">秋田県</option>
+                <option value="山形県">山形県</option>
+                <option value="福島県">福島県</option>
+                <option value="茨城県">茨城県</option>
+                <option value="栃木県">栃木県</option>
+                <option value="群馬県">群馬県</option>
+                <option value="埼玉県">埼玉県</option>
+                <option value="千葉県">千葉県</option>
+                <option value="東京都">東京都</option>
+                <option value="神奈川県">神奈川県</option>
+                <option value="新潟県">新潟県</option>
+                <option value="富山県">富山県</option>
+                <option value="石川県">石川県</option>
+                <option value="福井県">福井県</option>
+                <option value="山梨県">山梨県</option>
+                <option value="長野県">長野県</option>
+                <option value="岐阜県">岐阜県</option>
+                <option value="静岡県">静岡県</option>
+                <option value="愛知県">愛知県</option>
+                <option value="三重県">三重県</option>
+                <option value="滋賀県">滋賀県</option>
+                <option value="京都府">京都府</option>
+                <option value="大阪府">大阪府</option>
+                <option value="兵庫県">兵庫県</option>
+                <option value="奈良県">奈良県</option>
+                <option value="和歌山県">和歌山県</option>
+                <option value="鳥取県">鳥取県</option>
+                <option value="島根県">島根県</option>
+                <option value="岡山県">岡山県</option>
+                <option value="広島県">広島県</option>
+                <option value="山口県">山口県</option>
+                <option value="徳島県">徳島県</option>
+                <option value="香川県">香川県</option>
+                <option value="愛媛県">愛媛県</option>
+                <option value="高知県">高知県</option>
+                <option value="福岡県">福岡県</option>
+                <option value="佐賀県">佐賀県</option>
+                <option value="長崎県">長崎県</option>
+                <option value="熊本県">熊本県</option>
+                <option value="大分県">大分県</option>
+                <option value="宮崎県">宮崎県</option>
+                <option value="鹿児島県">鹿児島県</option>
+                <option value="沖縄県">沖縄県</option>
+              </select>
+              <errors :errors="errors.prefecture"></errors>
+            </div>
+
+            <div class="form-group">
+              <label for="address">市区町村・番地<span class="badge">必須</span></label>
+              <input type="text" name="address" id="address" v-model="address" placeholder="千代田区神田猿楽町1-5-15">
+              <errors :errors="errors.address"></errors>
+            </div>
+
+            <div class="form-group">
+              <label for="building">ビル名等</label>
+              <input type="text" name="building" id="building" v-model="building" placeholder="猿楽町SSビル">
+            </div>
+
+            <div class="form-group">
+              <label>興味のある分野（最大3つまで）<span class="badge">必須</span></label>
+              <div class="form-row" v-for="(interest, index) in interests">
+                <input type="text" :name="'interest' + index" v-model="interests[index]">
+                <button class="button-outline" v-if="canRemoveInterests" @click.prevent="removeInterests(index)">削除</button>
+              </div>
+              <errors :errors="errors.interests"></errors>
+              <button class="button-outline" v-if="canAddInterests" @click.prevent="addInterests">追加</button>
+            </div>
+
+            <p>
+              <input class="button" type="submit" value="送信する" @click.prevent="validate">
+            </p>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  Vue.component('errors', {
+    props: ['errors'],
+    template: `
+      <div class="errors" v-if="errors">
+        <div class="error" v-for="error in errors">{{ error }}</div>
+      </div>
+    `
+  });
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      name: '',
+      zip: '',
+      prefecture: '',
+      address: '',
+      building: '',
+      interests: [''],
+      interestsMaxCount: 3,
+      errors: {
+        name: [],
+        zip: [],
+        prefecture: [],
+        address: [],
+        interests: []
+      }
+    },
+    methods: {
+      zipToAddress: function () {
+        var self = this;
+        new YubinBango.Core(this.zip, function (addr) {
+          if (addr.region_id) {
+            self.prefecture = addr.region;
+            self.address = addr.locality + addr.street;
+          } else {
+            self.errors.zip.push('該当する住所がありません');
+          }
+        });
+      },
+      addInterests: function () {
+        this.interests.push('');
+      },
+      removeInterests: function (index) {
+        this.interests.splice(index, 1);
+      },
+      validate: function () {
+        var errors = {
+          name: [],
+          zip: [],
+          prefecture: [],
+          address: [],
+          interests: []
+        };
+        if (!this.name　) {
+          errors.name.push('必須項目が入力されていません');
+        } else if(this.name.length > 20) {
+          errors.name.push('20文字以内で入力してください。');
+        }
+        if (!this.zip) {
+          errors.zip.push('必須項目が入力されていません');
+        } else {
+          if (!this.zip.match(/\d{3}-?\d{4}/)) {
+            errors.zip.push('書式が正しくありません');
+          }
+        }
+        if (!this.prefecture) {
+          errors.prefecture.push('必須項目が入力されていません');
+        }
+        if (!this.address) {
+          errors.address.push('必須項目が入力されていません');
+        } else if(this.address.length > 40) {
+          errors.address.push('40文字以内で入力してください。');
+        }
+        if (this.interests.length <= 1 && !this.interests[0]) {
+          errors.interests.push('必須項目が入力されていません');
+        }
+        this.errors = errors;
+      }
+    },
+    computed: {
+      canAddInterests: function () {
+        return this.interests.length < this.interestsMaxCount;
+      },
+      canRemoveInterests: function () {
+        return this.interests.length > 1;
+      }
+    }
+  });
+</script>
+</body>
+</html>

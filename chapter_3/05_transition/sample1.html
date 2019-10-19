@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    /* 1秒間で透明度を制御する */
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 1s;
+    }
+    /* 表示する際は、透明度を 0 -> 1 へ */
+    .fade-enter {
+      opacity: 0;
+    }
+    .fade-enter-to {
+      opacity: 1;
+    }
+    /* 非表示にする際は、透明度を 1 -> 0 へ */
+    .fade-leave {
+      opacity: 1;
+    }
+    .fade-leave-to {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <transition name="fade">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    show: true
+  }
+});
+</script>
+</body>
+</html>

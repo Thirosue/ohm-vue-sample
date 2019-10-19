@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>診断アプリ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    .container {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .answerList {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-align: center;
+    }
+
+    .answerList.start li {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .answerList li {
+      display: inline-block;
+      width: 48%;
+      text-align: center;
+    }
+
+    .answerList li a {
+      display: block;
+      padding: 20px;
+      border-radius: 4px;
+      background: #ff8c00;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* フェードイン */
+    .fade-enter-active {
+      transition: opacity 0.8s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    /* スライド */
+    /* .fade-enter-active {
+      box-sizing: border-box;
+      width: 100%;
+      transition: all 0.8s ease;
+    }
+
+    .fade-leave-active {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      transition: all 0.8s ease;
+      opacity: 0;
+    }
+
+    .fade-enter {
+      transform: translateX(-100%);
+    }
+
+    .fade-leave-to {
+      transform: translateX(100%);
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <main class="main">
+      <section class="block">
+        <h1 class="block-title">ストレス診断</h1>
+        <div class="block-body">
+          <div class="contents view">
+            <!-- 初期表示 -->
+            <transition name="fade">
+              <main class="main top-page" v-show="status === 0">
+                <p class="leadText">あなたのストレス度をチェックします。</p>
+                <ul class="answerList start">
+                  <li><a href="#" @click.prevent.stop="start" class="">スタート</a></li>
+                </ul>
+              </main>
+            </transition>
+            <!-- 質問表示 -->
+            <transition name="fade" v-for="q in questions">
+              <main class="main top-page" v-show="q.num === status">
+                <b>質問{{q.num}}</b>
+                <p class="leadText" v-if="q">{{q.sentence}}</p>
+                <ul class="answerList">
+                  <ul class="answerList">
+                    <li><a href="#" @click.prevent.stop="answer('yes')">はい</a></li>
+                    <li><a href="#" @click.prevent.stop="answer('num')">いいえ</a></li>
+                  </ul>
+                </ul>
+              </main>
+            </transition>
+            <!-- 診断結果 -->
+            <transition name="fade">
+              <main class="main top-page" v-show="isFinish">
+                <b>診断結果</b>
+                <p class="leadText">{{result.sentence}}</p>
+                <a href="#" @click.prevent.stop="reset">最初からやり直す</a>
+              </main>
+            </transition>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // 質問
+    const questions = [
+      { num: 1, point: 1, sentence: '非常にたくさんの仕事をしなければならない' },
+      { num: 2, point: 2, sentence: '時間内に仕事が処理しきれない' },
+      { num: 3, point: 2, sentence: '高度の知識や技術が必要な仕事だ' },
+      { num: 4, point: 2, sentence: '自分のペースで仕事ができない' },
+      { num: 5, point: 3, sentence: '職場の雰囲気が悪い' },
+    ]
+    // 結果
+    const results = [
+      { min: 0, max: 4, sentence: 'あなたはそれほどストレスを感じていません。' },
+      { min: 5, max: 7, sentence: '少しストレスを感じているようです。意識的にストレス対処に努めてください。' },
+      { min: 8, max: 10, sentence: '非常に多くのストレスを感じているようです。医者の診断を受けてください。' },
+    ]
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        status: 0,
+        sum: 0,
+        questions: questions,
+      },
+      computed: {
+        question() {
+          return questions.filter(q => q.num === this.status).shift()
+        },
+        result() {
+          return results.filter(a => this.sum >= a.min && this.sum <= a.max).shift()
+        },
+        isFinish() {
+          return this.status > questions.length
+        }
+      },
+      methods: {
+        start() {
+          this.status = 1;
+        },
+        reset() {
+          this.status = 0;
+          this.sum = 0;
+        },
+        answer(type) {
+          let question = questions.filter((q) => {
+            return q.num === this.status
+          }).shift()
+
+          if (type === 'yes') {
+            this.sum = this.sum + question.point;
+          }
+
+          this.status++;
+        },
+      },
+    });
+  </script>
+</body>
+
+</html>

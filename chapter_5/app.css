@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background: #83fad2;
+  padding: 40px 0;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+.main {
+}
+
+.block {
+  background: #fff;
+  width: 550px;
+  margin: 0 auto;
+  border-radius: 40px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.block-title {
+  text-align: center;
+  margin: 0;
+  padding: 30px 0;
+  background: #f6f7fa;
+  color: #555;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+}
+.block-body {
+  padding: 30px 50px;
+}
+
+.button {
+  background: #83fad2;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  outline: none;
+}
+.button-outline {
+  background: #fff;
+  color: #83fad2;
+  border: 1px solid #83fad2;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 0 10px;
+  min-width: 8em;
+  cursor: pointer;
+  outline: none;
+  transition: .2s;
+}
+.button-outline:hover {
+  background-color: #83fad2;
+  color: #fff;
+}
+
+.form {
+  width: 100%;
+}
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+label {
+  display: block;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+input[type="text"],
+input[type="email"] {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  font-size: 14px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  transition: 0.2s;
+}
+input::placeholder {
+  color: #ccc;
+}
+input:focus {
+  border-color: #83fad2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+select {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 14px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  height: 38px;
+}
+.form-group {
+  margin: 0 0 30px;
+}

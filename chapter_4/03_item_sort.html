@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>itemList</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    th > div.sort.desc::after {
+        display: inline-block;
+        content: '▼';
+    }
+    th > div.sort.asc::after {
+        display: inline-block;
+        content: '▲';
+    }
+    th > div {
+      cursor: pointer;
+    }
+    .color {
+      display: inline-block;
+      height: 1em;
+      width: 1em;
+      margin-right: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <main class="main">
+    <section class="block">
+      <h1 class="block-title">商品一覧</h1>
+      <div class="block-body">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <div v-on:click="sortBy('id')" :class="sortClass('id')">No</div>
+                </th>
+                <th>
+                  <div v-on:click="sortBy('name')" :class="sortClass('name')">商品名</div>
+                </th>
+                <th>
+                  <div v-on:click="sortBy('price')" :class="sortClass('price')">価格</div>
+                </th>
+                <th>
+                    <div v-on:click="sortBy('colorCode')" :class="sortClass('colorCode')">色</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in result">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td><div class="color" :style="'background-color:' + item.colorCode"></div>{{item.colorName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // 商品一覧
+  const items = [
+    { id: 1, name:"リンゴ", price: 100, colorName: '赤', colorCode: 'red' },
+    { id: 2, name:"ミカン", price: 150, colorName: 'オレンジ', colorCode: 'orange' },
+    { id: 3, name:"ブドウ", price: 300, colorName: '紫', colorCode: 'purple' },
+    { id: 4, name:"バナナ", price: 50,  colorName: '黄', colorCode: 'yellow' },
+    { id: 5, name:"メロン", price: 550, colorName: '緑', colorCode: 'green' },
+    { id: 6, name:"スイカ", price: 400, colorName: '緑', colorCode: 'green' },
+    { id: 7, name:"トマト", price: 120, colorName: '赤', colorCode: 'red' },
+    { id: 8, name:"レモン", price: 110, colorName: '黄', colorCode: 'yellow' },
+    { id: 9, name:"イチゴ", price: 200, colorName: '赤', colorCode: 'red' },
+    { id: 10, name:"モモ",  price: 150, colorName: 'ピンク', colorCode: 'pink'},
+  ]
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      sort: {
+        key: '',
+        isAsc: false
+      }
+    },
+    computed: {
+      result: function() {
+        // sort()は元の配列の中身もソートされてしまうため、slice()で配列のコピーを作成してからソートします。
+        let list = items.slice();
+        // ソート実施
+        if(this.sort.key) {
+          list.sort((a, b) => {
+            console.log(a, b)
+            a = a[this.sort.key];
+            b = b[this.sort.key];
+            return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1);
+          });
+        }
+        return list;
+      }
+    },
+    methods: {
+      sortBy: function(key) {
+        // ソート順をセット
+        this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : true;
+        // ソートキーをセット
+        this.sort.key = key;
+      },
+      sortClass: function(key) {
+        return this.sort.key === key ? `sort ${this.sort.isAsc ? 'asc' : 'desc' }` : '';
+      }
+    },
+  });
+</script>
+</body>
+</html>

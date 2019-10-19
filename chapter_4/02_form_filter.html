@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Form</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    form {
+      width: 50%;
+      margin: 0 auto;
+    }
+    .form-row {
+      display: flex;
+    }
+    .form-row button {
+      flex: auto;
+      margin-left: 10px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: bold;
+      line-height: 1;
+      display: inline-block;
+      background: #f6f7fa;
+      padding: 4px 8px;
+      border-radius: 2px;
+      margin-left: .5em;
+      position: relative;
+      top: -1px;
+    }
+    .errors {
+      color: red;
+      margin: 10px 0 0;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <main class="main">
+    <section class="block">
+      <h1 class="block-title">お問い合わせ</h1>
+      <div class="block-body">
+        <form action="" class="form">
+          <fieldset>
+            <div class="form-group">
+              <label for="name">お名前<span class="badge">10文字</span></label>
+              <p class="errors">{{name | maxLengthValidator(10)}}</p>
+              <input type="text" name="name" id="name" v-model="name">
+            </div>
+            <div class="form-group">
+              <label for="subject">件名<span class="badge">20文字</span></label>
+              <p class="errors">{{subject | maxLengthValidator(20)}}</p>
+              <input type="text" name="subject" id="subject" v-model="subject">
+            </div>
+            <div class="form-group">
+              <label for="contents">内容<span class="badge">30文字</span></label>
+              <p class="errors">{{contents | maxLengthValidator(30)}}</p>
+              <div class="form-row">
+                <textarea type="text" name="contents" id="contents" v-model="contents"></textarea>
+              </div>
+            </div>
+            <p>
+              <input class="button" type="submit" value="送信する">
+            </p>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      name: '',
+      subject: '',
+      contents: '',
+    },
+    filters: {
+      //最大桁数チェックフィルタ
+      maxLengthValidator: function(val, max) {
+        if(val && val.length > max) {
+          return max + '文字以内で入力してください。'
+        }
+      },
+    },
+  });
+</script>
+</body>
+</html>

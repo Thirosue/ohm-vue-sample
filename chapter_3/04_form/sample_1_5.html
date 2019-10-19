@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="checkbox" id="checkbox" v-model="flag">
+  <label for="checkbox">{{ flag }}</label>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      flag: false
+    }
+  });
+</script>
+</body>
+</html>

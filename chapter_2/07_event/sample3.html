@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+  <style type="text/css">
+    ul {
+      list-style-type: none;
+    }
+    .template {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- はじめから表示されている画像 (3枚) -->
+  <div class="container">
+    <ul>
+      <li><img src="./img/sample1.png" class="image" alt="1"></li>
+      <li><img src="./img/sample2.png" class="image" alt="2"></li>
+      <li><img src="./img/sample3.png" class="image" alt="3"></li>
+    </ul>
+  </div>
+  <!-- 追加する画像のテンプレート 非表示 (disable:none) にしている -->
+  <div class="template">
+    <li><img src="./img/sample.png" class="image"></li>
+  </div>
+  <script>
+    var target = document.querySelector('ul'); //画像を追加する親要素を取得
+    var template = document.querySelector('.template li'); //画像を追加するテンプレートを取得
+    var count = 0;
+
+    window.addEventListener('scroll', function(e) {
+      var current_position = window.innerHeight + window.scrollY; //現在のウィンドウの高さ + 垂直スクロール量
+      var images = Array.from(document.querySelectorAll('.container .image')); //表示されている画像のリスト
+      var size = images.length;
+      var limit_position = images[size-1].offsetTop; //最後の画像の垂直座標
+      if( ( limit_position + 50 ) < current_position) { //現在の画面位置が最後の画像の垂直座標を少し超えている場合
+        var clone = template.cloneNode(true); //テンプレートの複製
+        target.appendChild(clone); //画像を末尾に追加
+        console.log(++count + '枚画像を追加しました');
+      }
+    });
+  </script>
+</body>
+</html>

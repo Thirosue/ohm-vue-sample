@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  {{rowHtml}}
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      rowHtml: '<p><strong>Hello</strong> World!!</p>'
+    }
+  })
+</script>
+</body>
+</html>

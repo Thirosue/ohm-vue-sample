@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>
+</head>
+<body>
+<div id="app">
+  本日は {{ date | parseDate }} です。<br/>
+  料金は {{ price | parsePrice }} になります。
+</div>
+<script>
+  //グローバルフィルタの利用
+  //アロー演算子で簡潔に記載できる
+  Vue.filter('parseDate', date => moment(date).format("YYYY年M月DD日"));
+  Vue.filter('parsePrice', price => Number(price).toLocaleString() + '円');
+
+  new Vue({
+    el: '#app',
+    data: {
+      date: new Date(),
+      price: 10000
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <select multiple v-model="selected">
+      <option v-for="value in list">{{value}}</option>
+  </select>
+  <br>
+  <span>Selected: {{ selected }}</span>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    created() {
+      //APIなど外部からデータを取得することを想定
+      this.list = ['Vue', 'Angular', 'React'];
+    },
+    data: {
+      list: [],
+      selected: []
+    }
+  });
+</script>
+</body>
+</html>

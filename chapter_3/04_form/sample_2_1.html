@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+  <h2>3文字以下で入力してください</h2>
+  <p>
+    <input id="field" type="text" name="name" size="40" maxlength="30" v-model.lazy='name'> <!-- lazy追加 -->
+  </p>
+  <div :style="displayObject">{{message}}</div> <!-- スタイルオブジェクトをバインド 初期状態は非表示 -->
+</div>
+<script>
+    new Vue({
+      el: '#app',
+      computed: {
+        //エラー文言のスタイルオブジェクト
+        displayObject() {
+          return {
+            display: this.active ? 'block' : 'none',
+            'font-weight': 'bold',
+            color: 'red',
+          }
+        }
+      },
+      data: {
+        name: '', //インプット情報
+        active: false, //デフォルトは非表示
+        message: 'エラー文言を設定する'
+      },
+      watch: {
+        //文字入力毎に処理が実行される
+        name(value) {
+          if(3 < value.length) {
+            this.active = true;
+            this.message = '3文字以下で入力してください !';
+          } else {
+            this.active = false;
+          }
+        }
+      }
+    })
+</script>
+</body>
+</html>

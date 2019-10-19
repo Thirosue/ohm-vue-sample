@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>アコーディオン</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    body {
+      background-color: rgb(226, 226, 226);
+    }
+    .accordion {
+      color: #1a1c1d;
+      border-left: 10px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .toggle {
+      position: relative;
+      color: #1a1c1d;
+      display: block;
+      font-weight: bold;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .toggle i {
+      position: absolute;
+      right: 15px;
+      top: 30%;
+      font-size: 1.5em;
+      transition: 0.3s ease-in-out;
+    }
+
+    .toggle:hover {
+      color: rgba(229, 229, 229, 0.965);
+    }
+
+    .accordion-body {
+      overflow: hidden;
+      transition: .3s ease-in-out;
+    }
+
+    .accordion:nth-child(1) {
+      background: rgb(240, 145, 140);
+    }
+
+    .accordion:nth-child(2) {
+      background: rgb(230, 187, 155);
+    }
+
+    .accordion:nth-child(3) {
+      background: rgb(126, 206, 144);
+    }
+
+    .details {
+      padding: 10px;
+    }
+
+    .rotation-enter, .rotation-leave-to {
+      transform: rotateX(180deg)
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <accordion>
+      <div slot="title">Chapter1-1</div>
+      <div class="details" slot="detail">
+        <h3>UI / UX</h3>
+        <p>ページ遷移が必要ない。リアルタイムでのフィードバックが必要なサイトが増えてきた</p>
+      </div>
+    </accordion>
+    <accordion>
+      <div slot="title">Chapter1-2</div>
+      <div class="details" slot="detail">
+        <h3>jQueryとの違い</h3>
+        <p>jQueryはDOMを外部から触るライブラリ</p>
+        <p>Vue.jsはデータ（ViewModel）を管理することで仮想DOMを描画するライブラリ</p>
+      </div>
+    </accordion>
+    <accordion>
+      <div slot="title">Chapter1-3</div>
+      <div class="details" slot="detail">
+        <h3>React.jsとの違い</h3>
+        <p>データによって仮想DOMを描画する点は一緒</p>
+        <p>HTMLをそのままテンプレートとして利用できる</p>
+        <p>つまりコンパイルも不要</p>
+        <button>もっと読む</button>
+      </div>
+    </accordion>
+  </div>
+
+  <script>
+    Vue.component('accordion', {
+      template: `
+        <div class="accordion">
+          <a class="toggle" @click="toggle()">
+            <slot name="title"></slot>
+            <transition name="rotation">
+              <i class="fas fa-chevron-down" v-if="!isOpen"></i>
+            </transition>
+            <transition name="rotation">
+              <i class="fas fa-chevron-up" v-if="isOpen"></i>
+            </transition>
+          </a>
+          <transition name="accordion" @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
+            <div class="accordion-body" v-if="isOpen">
+              <slot name="detail"></slot>
+            </div>
+          </transition>
+        </div>
+        `,
+
+      data() {
+        return {
+          isOpen: false,
+        };
+      },
+      methods: {
+        toggle: function () {
+          this.isOpen = !this.isOpen;
+        },
+        beforeEnter: function (el) {
+          el.style.height = '0';
+        },
+        enter: function (el) {
+          el.style.height = el.scrollHeight + 'px';
+        },
+        beforeLeave: function (el) {
+          el.style.height = el.scrollHeight + 'px';
+        },
+        leave: function (el) {
+          el.style.height = '0';
+        }
+      }
+    });
+
+    new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+
+</html>

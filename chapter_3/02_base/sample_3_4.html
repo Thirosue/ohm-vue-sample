@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(value, key, index) in book" :key="index">
+        {{ key }} : {{ value }}
+      </li>
+    </ul>
+  </div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    book: {
+      title: 'Pythonで機械学習入門 深層学習から敵対的生成ネットワークまで',
+      author: '大関 真之 著',
+      page: 416,
+      publisher: 'オーム社',
+      'ISBN': '978-4-274-22286-3',
+      date: '2019/05/31'
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>おみくじ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>おみくじ</h1>
+  <div id="result"></div>
+  <button class="button" id="button">おみくじを引く</button>
+</div>
+
+<script>
+  // DOMを取得
+  var button = document.getElementById('button');
+  var result = document.getElementById('result');
+  // 結果のデータ
+  var omikuji = ['大吉', '吉', '凶'];
+
+  // イベントのバインド
+  button.addEventListener('click', function () {
+    var index = Math.floor(Math.random() * omikuji.length);
+    var p = document.createElement('p');
+    p.appendChild(document.createTextNode('結果は…「' + omikuji[index] + '」です！'));
+    result.textContent = null;
+    result.appendChild(p);
+    button.textContent = 'おみくじをもう一度引く';
+  });
+</script>
+</body>
+</html>

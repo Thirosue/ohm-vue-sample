@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <h2>3文字以上入力してください</h2>
+  <p>
+    <input id="field" type="text" name="namae" size="40" maxlength="20">
+  </p>
+  <div id="result"></div>
+</div>
+
+<script>
+  var field = document.getElementById('field'); //入力フィールドを取得
+  var result = document.getElementById('result'); //チェック結果表示エリアを取得
+
+  field.addEventListener('focus', function () { //フォーカスONイベント
+    field.style.background = '#DDFFFF'; //テキストエリアを色付け
+    result.textContent = null;
+  });
+
+  field.addEventListener('blur', function () { //フォーカスOFFイベント
+    field.style.background = null; //テキストエリアの色付け解除
+    if(field.value.length < 3) {
+      result.textContent = '3文字以上入力してください。'; //チェック結果エリアにチェックエラー文言設定
+      result.style.color = "red";
+    }
+  });
+
+  field.addEventListener('keyup', function () {
+    console.log(field.value.length + '文字入力しています...');
+  });
+</script>
+</body>
+</html>

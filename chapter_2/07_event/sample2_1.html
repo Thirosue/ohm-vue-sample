@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <input id="field" type="text" name="namae" size="40" maxlength="20">
+</div>
+
+<script>
+  var field = document.getElementById('field');
+
+  field.addEventListener('keyup', function () {
+    console.log(field.value.length + '文字入力しています...');
+  });
+</script>
+</body>
+</html>

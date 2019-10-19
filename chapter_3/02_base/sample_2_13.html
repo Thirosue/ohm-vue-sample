@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app" class="container">
+    <div v-bind:class="{ active: isActive, error: hasError }">classバインディング</div>
+  </div>
+  <script>
+  new Vue({
+    el: '#app',
+    data: {
+      isActive: true,
+      hasError: false
+    }
+  })
+  </script>
+</body>
+</html>

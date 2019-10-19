@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>おみくじ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div class="container" id="app">
+  <h1>おみくじ</h1>
+  <div v-if="result">結果は…「{{ result }}」です！</div>
+  <button class="button" v-on:click="draw">{{ button }}</button>
+</div>
+
+<script>
+  // 結果のデータ
+  var omikuji = ['大吉', '吉', '凶'];
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      result: null,
+      button: 'おみくじを引く'
+    },
+    methods: {
+      draw: function () {
+        var index = Math.floor(Math.random() * omikuji.length);
+        this.result = omikuji[index];
+        this.button = 'おみくじをもう一度引く';
+      }
+    }
+  });
+</script>
+</body>
+</html>

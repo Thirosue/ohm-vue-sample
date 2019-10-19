@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ShoppingCart</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+  .flex-container {
+    display: flex;
+  }
+  .cart {
+    flex-grow: 1;
+    margin: 20px;
+    position: relative;
+  }
+  .summary {
+    background-color: #f6f6f6;
+    position: fixed;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #EDEDED;
+    box-shadow: 1px 0 5px 4px rgba(85, 144, 184, 0.6);
+    width: 400px;
+  }
+  .flex-item{
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .contents {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px gray solid;
+    border-top: 1px gray solid;
+    padding: 10px;
+  }
+  .contents *:nth-child(1){
+    width: 130px;
+    height: 150px;
+  }
+  .contents *:nth-child(2){
+    width: 120px;
+  }
+  .contents *:nth-child(3){
+    width: 100px;
+  }
+  .contents *:nth-child(4){
+    width: 70px;
+  }
+  .row{
+    display: block;
+    margin: 10px;
+    width: 100%;
+  }
+  .table-cart > tr > td {
+    vertical-align: middle !important;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <h1>ショッピングカート</h1>
+    <div class="flex-container">
+      <!-- 一覧表示 -->
+      <div class="flex-item">
+        <div class="row" v-for="item in items">
+          <div class="contents">
+            <div>
+              <img :src="item.image" alt="">
+            </div>
+            <div>{{item.title}}</div>
+            <div>{{item.price | formatCurrency}}</div>
+            <input v-model="item.qty" type="number" min="1" />
+            <button @click="addToCart(item)" class="button button-outline">カートに入れる</button>
+          </div>
+        </div>
+      </div>
+      <!-- カート -->
+      <div class="cart">
+        <div class="summary">
+          <table class="table table-cart">
+            <tr>
+              <th class="" colspan="4"><i class="fas fa-shopping-cart"></i>ショッピングカート</th>
+            </tr>
+            <tr v-for="(item, index) in cartItems">
+              <td>{{item.title}}</td>
+              <td>{{item.qty}}点</td>
+              <td>{{item.price | formatCurrency}}</td>
+              <td>
+                <a href="#" @click.stop.prevent="remove(index)"><i class="fas fa-times-circle"></i>削除</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">合計</td>
+              <td colspan="2">{{total | formatCurrency}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, title: '商品1', price: 500, qty: 1, image: './images/cart/thumbnail_01.jpg' },
+      { id: 2, title: '商品2', price: 1000, qty: 1, image: './images/cart/thumbnail_02.jpg' },
+      { id: 3, title: '商品3', price: 350, qty: 1, image: './images/cart/thumbnail_03.jpg' },
+      { id: 4, title: '商品4', price: 2000, qty: 1, image: './images/cart/thumbnail_04.jpg' },
+      { id: 5, title: '商品5', price: 1500, qty: 1, image: './images/cart/thumbnail_05.jpg' },
+      { id: 6, title: '商品6', price: 50, qty: 1, image: './images/cart/thumbnail_06.jpg' },
+      { id: 7, title: '商品7', price: 9800, qty: 1, image: './images/cart/thumbnail_07.jpg' },
+      { id: 8, title: '商品8', price: 20, qty: 1, image: './images/cart/thumbnail_08.jpg' },
+    ];
+
+    // カンマ区切り
+    Vue.filter('formatCurrency', function (value) {
+      return '¥' + String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    });
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        cartItems: [], //カート追加済みの商品
+        items: products //商品一覧
+      },
+      computed: {
+        total: function () {
+          let total = 0;
+          this.cartItems.forEach(item => {
+            total += (item.price * item.qty);
+          });
+          return total;
+        }
+      },
+
+      methods: {
+        // カートに追加
+        addToCart(itemToAdd) {
+          let existence = false;
+
+          this.cartItems.forEach(item => {
+            // すでにカートに追加済みの場合は価格を加算
+            if (item.id === itemToAdd.id) {
+              existence = true;
+              item.qty += Number(itemToAdd.qty);
+            }
+          });
+
+          // 新規商品の場合は商品を追加
+          if (existence === false) {
+            this.cartItems.push(Vue.util.extend({}, itemToAdd));
+          }
+
+          itemToAdd.qty = 1;
+        },
+        // カートから削除
+        remove(index) {
+          this.cartItems.splice(index, 1)
+        }
+
+      }
+    })
+
+  </script>
+</body>
+
+</html>

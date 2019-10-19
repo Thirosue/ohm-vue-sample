@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <h1>セレクター</h1>
+  <div id="result">
+    <ul>
+      <li id="one" class='list one'>1つ目</li>
+      <li id="two" class='list two'>2つ目</li>
+      <li id="three" class='list three'>3つ目</li>
+      <li class='list four'>4つ目</li>
+    </ul>
+  </div>
+</div>
+<script>
+  var list = document.querySelectorAll('.list');
+  console.log(list); //NodeList(4) [li#one.list.one, li#two.list.two, li#three.list.three, li.list.four]
+  var one = document.querySelector('.list'); //複数一致した場合は、先頭の要素を取得
+  console.log(one); //<li id="one" class='list one'>1つ目</li>
+  var four = document.querySelector('.four');
+  console.log(four); //<li class='list four'>4つ目</li>
+  console.log(document.getElementsByClassName('two').item(0)); //getElementsByClassNameでも同様の操作が可能
+</script>
+</body>
+</html>

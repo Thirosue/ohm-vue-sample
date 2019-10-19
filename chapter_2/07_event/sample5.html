@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<style>
+  .box.root {
+    width : 400px;
+    height: 250px;
+  }
+  .box.red {
+    background-color: #c0392b;
+  }
+  .box.blue {
+    background-color: #3498db;
+  }
+  .ancestor {
+    position: relative;
+  }
+  .parent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 80%;
+    height: 6rem;
+  }
+  a {
+    position: absolute;
+    background-color: white;
+    font-size: 2em;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    height: 3rem;
+    width: 50%;
+    text-align: center;
+  }
+</style>
+<body>
+<div id="ancestor" class="box root blue ancestor"> <!-- 祖先要素 -->
+  <div id="parent" class="box red parent"> <!-- 親要素 -->
+    <a id="child" href="#">click</a> <!-- 子要素 -->
+  </div>
+</div>
+
+<script>
+  //各要素の取得
+  var ancestor = document.getElementById('ancestor');
+  var parent = document.getElementById('parent');
+  var child = document.getElementById('child');
+
+  //clickイベントの設定
+  ancestor.addEventListener('click',() => console.log('祖先がクリックされました'));
+  parent.addEventListener('click',() => console.log('親がクリックされました'));
+  child.addEventListener('click',() => console.log('子がクリックされました'));
+</script>
+</body>
+</html>

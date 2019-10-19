@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+  <style>
+    /* 要素が変わるときに追加される */
+    .v-move {
+      transition: transform 1s;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button v-on:click="reverse">
+    Reverse
+  </button>
+  <button v-on:click="shuffle">
+    Shuffle
+  </button>
+  <transition-group tag="p">
+    <li v-for="item in items" :key="item.id">
+      {{ item.name }} 価格: {{ item.price }} 円 
+    </li>
+  </transition-group>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    items: [
+      { id: 1, name:"リンゴ", price: 100 },
+      { id: 2, name:"ミカン", price: 150 },
+      { id: 3, name:"ブドウ", price: 300 },
+      { id: 4, name:"バナナ", price: 50 },
+      { id: 5, name:"メロン", price: 550 },
+      { id: 6, name:"スイカ", price: 400 },
+      { id: 7, name:"トマト", price: 120 },
+      { id: 8, name:"レモン", price: 110 },
+      { id: 9, name:"イチゴ", price: 200 },
+      { id: 10, name:"モモ",  price: 150 }
+    ],
+    flag: true
+  },
+  methods: {
+    reverse() {
+      this.items = this.items.sort((a,b)=>this.flag ? -(a.id-b.id) : (a.id-b.id));
+      this.flag = !this.flag;
+    },
+    shuffle() {
+      this.items = _.shuffle(this.items);
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <button class="button" id="button">クリック</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  // DOMを取得
+  var button = document.getElementById('button');
+  var result = document.getElementById('result');
+  var count = 0;
+
+  // イベントのバインド
+  button.addEventListener('click', function () {
+    result.textContent = 'ボタンを' + ++count + '回クリックしました。';
+  });
+</script>
+</body>
+</html>

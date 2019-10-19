@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="app">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <transition
+    v-on:before-enter="beforeEnter"
+    v-on:enter="enter"
+    v-on:after-enter="afterEnter"
+    v-on:enter-cancelled="enterCancelled"
+  
+    v-on:before-leave="beforeLeave"
+    v-on:leave="leave"
+    v-on:after-leave="afterLeave"
+    v-on:leave-cancelled="leaveCancelled">
+    <p v-show="show">hello</p>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    show: true
+  },
+  methods: {
+    //v-enterに相当
+    beforeEnter: function (el) {
+      console.log('[enter] トランジションを開始します...');
+      $(el).css('opacity', 0);
+    },
+    //v-enter-activeに相当
+    enter: function (el, done) {
+      //done コールバックを呼ぶ必要があります
+      console.log('[enter] トランジション中...');
+      $(el).animate({ opacity: 1 }, 1000, done);
+    },
+    //v-enter-toに相当
+    afterEnter: function (el) {
+      console.log('[enter] トランジション終了しました');
+      $(el).css('opacity', 1);
+    },
+    //enterトランジションキャンセル時に呼ばれる
+    enterCancelled: function (el) {
+      console.log('[enter] トランジションをキャンセルします');
+      $(el).stop();
+    },
+    //v-leaveに相当
+    beforeLeave: function (el) {
+      console.log('[leave] トランジションを開始します...');
+      $(el).css('opacity', 1);
+    },
+    //v-leave-activeに相当
+    leave: function (el, done) {
+      //done コールバックを呼ぶ必要があります
+      console.log('[leave] トランジション中...');
+      $(el).animate({ opacity: 0 }, 1000, done);
+    },
+    //v-leave-toに相当
+    afterLeave: function (el) {
+      console.log('[leave] トランジション終了しました');
+      $(el).css('opacity', 0);
+    },
+    //leaveトランジションキャンセル時に呼ばれる
+    leaveCancelled: function (el) {
+      console.log('[leave] トランジションをキャンセルします');
+      $(el).stop();
+    }
+  }
+});
+</script>
+</body>
+</html>

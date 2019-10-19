@@ -1,0 +1,65 @@
+{
+  "count": 10,
+  "articles": [
+    {
+      "title": "タイトル01",
+      "url": "/article/01",
+      "thumbnail": "./images/load-more/thumbnail_01.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル02",
+      "url": "/article/02",
+      "thumbnail": "./images/load-more/thumbnail_02.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル03",
+      "url": "/article/03",
+      "thumbnail": "./images/load-more/thumbnail_03.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル04",
+      "url": "/article/04",
+      "thumbnail": "./images/load-more/thumbnail_04.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル05",
+      "url": "/article/05",
+      "thumbnail": "./images/load-more/thumbnail_05.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル06",
+      "url": "/article/06",
+      "thumbnail": "./images/load-more/thumbnail_06.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル07",
+      "url": "/article/07",
+      "thumbnail": "./images/load-more/thumbnail_07.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル08",
+      "url": "/article/08",
+      "thumbnail": "./images/load-more/thumbnail_08.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル09",
+      "url": "/article/09",
+      "thumbnail": "./images/load-more/thumbnail_09.jpg",
+      "category": "フード"
+    },
+    {
+      "title": "タイトル10",
+      "url": "/article/10",
+      "thumbnail": "./images/load-more/thumbnail_10.jpg",
+      "category": "フード"
+    }
+  ]
+}

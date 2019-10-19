@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  本日は {{ parseDate }} です。<br/>
+  料金は {{ parsePrice }} になります。
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      date: new Date(),
+      price: 10000
+    },
+    computed: {
+      parseDate() {
+        return this.date.getFullYear() + '年' + ( this.date.getMonth() + 1 ) + '月' + this.date.getDate() + '日'
+      },
+      parsePrice() {
+        return Number(this.price).toLocaleString() + '円'
+      }      
+    }
+  })
+</script>
+</body>
+</html>

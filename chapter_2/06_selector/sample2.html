@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>サンプル</title>
+</head>
+<body>
+<div class="container">
+  <h1>セレクター</h1>
+  <div id="result">
+    <ul class='list'>
+      <li id="one">1つ目</li>
+      <li id="two">2つ目</li>
+      <li id="three">3つ目</li>
+      <li>4つ目</li>
+    </ul>
+  </div>
+</div>
+<script>
+var one = document.querySelector('#one');
+console.log(one); //<li id="one">1つ目</li>
+var two = document.getElementById('two'); //getElementByIdでも同様の操作が可能
+console.log(two); //<li id="two">2つ目</li>
+</script>
+</body>
+</html>

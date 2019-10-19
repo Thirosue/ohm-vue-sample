@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>インクリメンタルサーチ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <style>
+    .card {
+      display: inline-flex;
+      padding: 0 10px;
+      margin: 5px 10px;
+      border-radius: 3px;
+      background-color: #20b2aa;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <h1>インクリメンタルサーチ</h1>
+    <main class="main">
+      <div class="row">
+        <div class="column">
+          <label>都道府県
+            <select v-model="pref" @change="city = null">
+              <option v-for="item in prefectures" :key="item.id" :value="item.id">{{item.name}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="column">
+          <label>市区町村
+            <input type="text" v-model="city" @KeyUp="isSelect=false">
+            <a href="#" v-for="pref in suggestList" class="card" @click.stop.prevent="citySelect(pref.citycode)">
+              {{pref.city}}
+            </a>
+          </label>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const apiPath = './json/incremental_search.json';
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        prefectures: [],
+        pref: undefined,
+        city: undefined,
+        isSelect: false,
+      },
+      computed: {
+        suggestList() {
+          let retList = [];
+          if (!this.isSelect && this.city) {
+            this.prefectures.forEach(p => {
+              if (!this.pref || p.id === this.pref) {
+                p.city.forEach(c => {
+                  if (c.city.indexOf(this.city) > -1) {
+                    retList.push(c)
+                  }
+                })
+              }
+            });
+          }
+          return retList;
+        }
+      },
+      methods: {
+        prefSelect(pref) {
+          this.pref = pref
+          this.isSelect = true
+        },
+        citySelect(code) {
+          let selectCity = this.suggestList.filter(pref => {
+            return pref.citycode === code
+          })
+          this.city = selectCity.shift().city
+          this.isSelect = true
+        },
+        hiraToKana(str) {
+          return str.replace(/[\u3041-\u3096]/g, function(match) {
+              var chr = match.charCodeAt(0) + 0x60;
+              return String.fromCharCode(chr);
+          })
+        }
+      },
+      mounted() {
+        let self = this;
+        axios.get(apiPath).then(function (response) {
+          self.prefectures = response.data.pref
+        })
+      }
+    })
+  </script>
+</body>
+
+</html>

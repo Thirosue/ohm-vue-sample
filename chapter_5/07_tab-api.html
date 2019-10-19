@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>タブ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <style>
+    .tab {
+      list-style: none;
+      border-bottom: 1px solid #ccc;
+    }
+    .tab-item {
+      border: 1px solid transparent;
+      border-bottom: none;
+      display: inline-block;
+      margin: 0 0 -1px;
+      border-radius: 4px 4px 0 0;
+    }
+    .tab-item:hover {
+      border-color: #ccc;
+    }
+    .tab-item a {
+      display: block;
+      padding: 10px 15px;
+    }
+    .tab-item.active {
+      border-color: #ccc;
+      background-color: #fff;
+    }
+    .tab-item.active a {
+      color: #606c76;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <h1>タブ</h1>
+  <ul class="tab">
+    <li class="tab-item" v-for="(item, index) in items" :key="index" :class="{ active: active === index }">
+      <a href="#" @click.prevent="activate(index)">{{ item.tab }}</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane" v-for="(item, index) in items" :key="index" v-show="active === index" v-html="item.content"></div>
+  </div>
+</div>
+
+<script>
+  var apiPath = './json/tab.json';
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      active: 0,
+      items: [
+        { tab: '', content: '' }
+      ],
+    },
+    methods: {
+      activate: function (index) {
+        this.active = index;
+      }
+    },
+    mounted: function () {
+      var self = this;
+      axios
+        .get(apiPath)
+        .then(function (response) {
+          self.items = response.data.items;
+        });
+    }
+  });
+</script>
+</body>
+</html>

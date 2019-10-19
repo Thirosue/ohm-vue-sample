@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <template v-if="isActive">
+      <h2>Title</h2>
+      <ul>
+        <li>value1</li>
+        <li>value2</li>
+        <li>value3</li>
+      </ul>
+    </template>
+  </div>
+<script>
+    new Vue({
+      el: '#app',
+      data: {
+        isActive: true
+      }
+    })
+    </script>
+</body>
+</html>

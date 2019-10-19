@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="app">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <transition appear
+    name="custom-classes-transition"
+    enter-active-class="animated bounceInDown"
+    leave-active-class="animated bounceOutDown"
+  >
+    <p style="font-size: 30px" v-if="show">Animate.css</p>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    show: true
+  }
+});
+</script>
+</body>
+</html>

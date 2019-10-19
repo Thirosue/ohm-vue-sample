@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>itemList</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    body {
+      background: #F5F5F5;
+    }
+    button.sorted{
+      background: #fff;
+      color:#9b4dca;
+      border: 1px solid #9b4dca;
+      border-radius: 19px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+      padding: 0 10px;
+      min-width: 6em;
+      cursor: pointer;
+      outline: none;
+      transition: .2s;
+    }
+    .sorted.desc::after {
+      display: inline-block;
+      content: '▼降順';
+    }
+    .sorted.asc::after {
+      display: inline-block;
+      content: '▲昇順';
+    }
+
+    .sort-items > div {
+      border-bottom: 1px dotted gray;
+    }
+    .sidemenu {
+      float: left;
+      width: 250px;
+      height: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(204,204,204,0.2);
+      border: 1px solid #ccc;
+    }
+    .content {
+      float: left;
+      height: 100%;
+      width: calc(100% - 270px);
+      position: relative;
+    }
+    .sidemenu input {
+      background: #fff;
+    }
+    .sidemenu select {
+      width: 60%;
+      position: relative;
+      font-family: inherit;
+      background-color: transparent;
+      padding: 10px 10px 10px 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0, 0.3);
+    }
+
+    .search-color input[type="checkbox"] {
+      display: none;
+    }
+    .search-price,
+    .search-color {
+      display: flex;
+      justify-content: space-around;
+    }
+    .color {
+      display: inline-block;
+      height: 1.3em;
+      width: 1.3em;
+      margin-right: 2px;
+      border-radius: 3px;
+      border: solid 1px #ccc;
+      cursor: pointer;
+    }
+    label > input[type="checkbox"]:checked + div {
+      border: 3px solid #87CEEB;
+      border-radius: 3px;
+    }
+    #red + .color {
+      background-color: red;
+    }
+    #orange + .color {
+      background-color: orange;
+    }
+    #purple + .color {
+      background-color: purple;
+    }
+    #yellow + .color {
+      background-color: yellow;
+    }
+    #green + .color {
+      background-color: green;
+    }
+    #pink + .color {
+      background-color: pink;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 10px;
+      width: 98%;
+      height: 4em;
+      box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+      border: solid 1px rgba(0,0,0,0.1);
+      background: rgba(255,255,255);
+    }
+    .item > span {
+      width: 25%;
+      padding: 1.2rem 1.5rem;
+    }
+
+    /* トランジション用スタイル */
+    .list-enter-active, .list-leave-active, .list-move {
+      transition: opacity 1s, transform 1s;
+    }
+    .list-leave-active {
+      position: absolute;
+    }
+    .list-enter {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    .list-leave-to {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <main class="main">
+      <h1 class="block-title">商品一覧</h1>
+      <div class="block-body">
+        <div>
+          <section class="sidemenu">
+            <input type="text" v-model="filter.name" placeholder="商品名を入力してください" />
+            <label>価格</label>
+            <div class="search-price">
+              <label for="under">
+                <input type="checkbox" id="under" value="under" v-model="filter.price">
+                200円未満
+              </label>
+              <label for="over">
+                <input type="checkbox" id="over" value="over" v-model="filter.price">
+                200円以上
+              </label>
+            </div>
+            <label>カラー</label>
+            <div class="search-color">
+              <label>
+                <input type="checkbox" id="red" value="red" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+              <label>
+                <input type="checkbox" id="orange" value="orange" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+              <label>
+                <input type="checkbox" id="purple" value="purple" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+              <label>
+                <input type="checkbox" id="yellow" value="yellow" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+              <label>
+                <input type="checkbox" id="green" value="green" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+              <label>
+                <input type="checkbox" id="pink" value="pink" v-model="filter.color">
+                <div class="color"></div>
+              </label>
+            </div>
+            <label>並び順</label>
+            <div class="sort-items">
+              <select v-model="sort.key">
+                <option value="id">No</option>
+                <option value="name">商品名</option>
+                <option value="price">価格</option>
+                <option value="colorCode">色</option>
+              </select>
+              <button v-on:click="sortBy(sort.key)" :class="sortClass(sort.key)"></button>
+            </div>
+          </section>
+
+          <section class="content">
+            <transition-group name="list" tag="ul">
+              <li v-for="(item, index) in result" :key="item.id" class="item">
+                <span>{{item.id}}</span>
+                <span>{{item.name}}</span>
+                <span>{{item.price | formatCurrency}}</span>
+                <span>
+                  <div class="color" :style="'background-color:' + item.colorCode"></div>
+                </span>
+              </li>
+            </transition-group>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // 商品一覧
+    const items = [
+      { id: 1, name: "リンゴ", price: 100, colorName: '赤', colorCode: 'red' },
+      { id: 2, name: "ミカン", price: 150, colorName: 'オレンジ', colorCode: 'orange' },
+      { id: 3, name: "ブドウ", price: 300, colorName: '紫', colorCode: 'purple' },
+      { id: 4, name: "バナナ", price: 50, colorName: '黄', colorCode: 'yellow' },
+      { id: 5, name: "メロン", price: 550, colorName: '緑', colorCode: 'green' },
+      { id: 6, name: "スイカ", price: 400, colorName: '緑', colorCode: 'green' },
+      { id: 7, name: "トマト", price: 120, colorName: '赤', colorCode: 'red' },
+      { id: 8, name: "レモン", price: 110, colorName: '黄', colorCode: 'yellow' },
+      { id: 9, name: "イチゴ", price: 200, colorName: '赤', colorCode: 'red' },
+      { id: 10, name: "モモ", price: 150, colorName: 'ピンク', colorCode: 'pink' },
+    ]
+
+    // 金額表示フィルタ
+    Vue.filter('formatCurrency', function (value) {
+      return '¥' + String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    });
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        filter: {
+          name: '',
+          price: [],
+          color: []
+        },
+        sort: {
+          key: 'id',
+          isAsc: true
+        }
+      },
+      computed: {
+        result: function () {
+          // sort()は元の配列の中身もソートされてしまうため、slice()で配列のコピーを作成してからソートします。
+          let list = items.slice();
+          // ソート実施
+          if (this.sort.key) {
+            list.sort((a, b) => {
+              a = a[this.sort.key];
+              b = b[this.sort.key];
+              return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1);
+            });
+          }
+
+          // 商品名によるフィルタ処理
+          if (this.filter.name) {
+            list = list.filter(item => item.name.indexOf(this.filter.name) > -1);
+          }
+
+          // 価格によるフィルタ処理
+          if (this.filter.price.length > 0) {
+            list = list.filter(item => {
+              // 200円未満が選択されている場合
+              if (this.filter.price.indexOf('under') > -1) {
+                if (item.price < 200) {
+                  return true;
+                }
+              }
+              // 200円以上が選択されている場合
+              if (this.filter.price.indexOf('over') > -1) {
+                if (item.price >= 200) {
+                  return true;
+                }
+              }
+              return false;
+            })
+          }
+
+          // 色によるフィルタ
+          if (this.filter.color.length > 0) {
+            list = list.filter(item => {
+              return this.filter.color.indexOf(item.colorCode) > -1
+            })
+          }
+
+          return list;
+        }
+      },
+      methods: {
+        sortBy: function (key) {
+          // ソート順をセット
+          this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : true;
+          // ソートキーをセット
+          this.sort.key = key;
+        },
+        sortClass: function (key) {
+          return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc'}` : '';
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

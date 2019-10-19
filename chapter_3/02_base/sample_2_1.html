@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  {{ str }} <br/>
+  {{ list[0] }} <br/>
+  {{ obj.atr2 }}
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      str: 'Hello World!',
+      list: [1, 2, 3],
+      obj: {
+        atr1: 'value1',
+        atr2: 'value2'
+      }
+    }
+  })
+</script>
+</body>
+</html>

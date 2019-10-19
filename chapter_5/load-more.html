@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>もっと読む</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <style>
+    .main {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .card {
+      width: 32%;
+      margin-left: 2%;
+      margin-bottom: 2%;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    .card:nth-child(3n+1) {
+      margin-left: 0;
+    }
+    .card-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px 6px 0 0;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .category {
+      display: inline-block;
+      line-height: 1;
+      padding: 5px 8px;
+      background: #ccc;
+      font-size: 12px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <h1>もっと読む</h1>
+  <main class="main">
+    <article v-for="article in articles" class="card">
+      <img v-bind:src="article.thumbnail" alt="" class="card-img">
+      <div class="card-body">
+        <h2 class="card-title">{{ article.title }}</h2>
+        <div class="card-meta">
+          <span class="category">{{ article.category }}</span>
+        </div>
+      </div>
+    </article>
+  </main>
+  <button class="button" v-on:click="load" v-if="hasNext">もっと見る</button>
+</div>
+
+<script>
+  var apiPath = './json/articles.json';
+  var loadNum = 3;
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      articles: [],
+      hasNext: true
+    },
+    methods: {
+      load: function () {
+        var self = this;
+        axios
+          .get(apiPath)
+          .then(function (response) {
+            self.articles = self.articles.concat(response.data.articles.slice(self.articles.length, self.articles.length + loadNum));
+            if (self.articles.length >= response.data.count) self.hasNext = false;
+          });
+      }
+    },
+    mounted: function () {
+      this.load();
+    }
+  });
+</script>
+</body>
+</html>

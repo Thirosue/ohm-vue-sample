@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<style>
+  .box.root {
+    width : 400px;
+    height: 250px;
+  }
+  .box.red {
+    background-color: #c0392b;
+  }
+  .box.blue {
+    background-color: #3498db;
+  }
+  .ancestor {
+    position: relative;
+  }
+  .parent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 80%;
+    height: 6rem;
+  }
+  a {
+    position: absolute;
+    background-color: white;
+    font-size: 2em;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    height: 3rem;
+    width: 50%;
+    text-align: center;
+  }
+</style>
+<body>
+<div id="app">
+  <div @click="logging('祖先')" id="ancestor" class="box root blue ancestor"> <!-- 祖先要素 -->
+    <div @click="logging('親')" id="parent" class="box red parent"> <!-- 親要素 -->
+      <a @click.stop="logging('子')" id="child" href="#">click</a> <!-- 子要素 -->
+    </div>
+  </div>    
+</div>
+<script>
+new Vue({
+  el: '#app',
+  methods: {
+    logging: (param) => console.log(param + 'がクリックされました')
+  }
+});
+</script>
+</body>
+</html>

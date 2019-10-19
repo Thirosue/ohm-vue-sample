@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, World!</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  {{ message }}
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello World!'
+    },
+    created() {
+      //インスタンス生成時に実行される（DOM生成前）
+      console.log('created !'); 
+      console.log(document.getElementById('app').textContent.trim());
+    },
+    mounted() {
+      //インスタンス生成時に実行される（DOM生成後）
+      console.log('mounted !'); 
+      console.log(document.getElementById('app').textContent.trim());
+    }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+  <!-- v-bind:cssでVueにCSSの判定をスキップさせ、トランジションへの干渉を防止する -->
+  <transition @enter="enter" @leave="leave" :css="false">
+    <p v-if="show">Velocity.js</p>
+  </transition>
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    show: false
+  },
+  methods: {
+    enter(el, done) {
+      Velocity(el, { opacity: 1, fontSize: '4em' }, { duration: 300 })
+      Velocity(el, { fontSize: '2em' }, { complete: done })
+    },
+    leave(el, done) {
+      Velocity(el, { translateY: '30px', opacity: 0 }, { duration: 900 }, { complete: done })
+    }
+  }
+});
+</script>
+</body>
+</html>

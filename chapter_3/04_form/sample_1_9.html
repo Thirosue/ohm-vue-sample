@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>sample</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <select v-model="selected">
+      <option disabled value="">Please select one</option>
+      <option>Vue</option>
+      <option>Angular</option>
+      <option>React</option>
+  </select>
+  <br>
+  <span>Selected: {{ selected }}</span>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      selected: null
+    }
+  });
+</script>
+</body>
+</html>

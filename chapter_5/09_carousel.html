@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>カルーセル</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <style>
+    .main {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+    }
+
+    .btn_left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      height: 250px;
+    }
+
+    .btn_right {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+      height: 250px;
+    }
+
+    .carousel button {
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      font-size: 2em;
+    }
+
+    .slider {
+      overflow: hidden;
+      position: relative;
+      height: 250px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    .carousel img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      height: 250px;
+    }
+
+    .center {
+      width: 100%;
+    }
+
+    .footer {
+      text-align: center;
+      display: flex;
+      width: 100%;
+    }
+
+    .point {
+      margin: 0.5em;
+      cursor: pointer;
+    }
+
+    .point.active {
+      color: rgb(167, 78, 250);
+    }
+
+    /* トランジション */
+    .slide-right-leave-active,
+    .slide-right-enter-active,
+    .slide-left-leave-active,
+    .slide-left-enter-active {
+      transition: 1s ease-in-out;
+    }
+
+    .slide-right-enter,
+    .slide-left-leave-to {
+      transform: translateX(100%);
+    }
+
+    .slide-right-leave-to,
+    .slide-left-enter {
+      transform: translateX(-100%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <main class="main">
+      <section class="block">
+        <h1 class="block-title">カルーセル</h1>
+        <carousel :img-list="images"></carousel>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    Vue.component('carousel', {
+      template: `
+        <div class="carousel">
+          <div class="btn_left">
+            <button type="button" class="button button-clear" @click="prev">
+              <i class="fas fa-angle-left"></i>
+            </button>
+          </div>
+          <transition-group tag="div" class="slider" :name="style">
+            <div v-for="(img, index) in imgList" :key="img" v-if="index === displayImg">
+              <img :src="img" />
+            </div>
+          </transition-group>
+          <div class="btn_right">
+            <button type="button" class="button button-clear" @click="next">
+              <i class="fas fa-angle-right"></i>
+            </button>
+          </div>
+          <div class="footer">
+            <div class="center">
+              <span class="point" v-for="(number, index) in imgList.length" :key="index" :class="{'active':index === displayImg}" @click="switchImg(index)">●</span>
+            </div>
+          </div>
+        </div>
+        `,
+
+      props: {
+        imgList: Array
+      },
+      data() {
+        return {
+          displayImg: 0,
+          style: '',
+          timerId: undefined,
+        }
+      },
+      methods: {
+        next() {
+          if (this.displayImg >= this.imgList.length - 1) {
+            this.displayImg = 0;
+          } else {
+            this.displayImg++;
+          }
+          this.style = "slide-right"
+        },
+        prev() {
+          if (this.displayImg == 0) {
+            this.displayImg = this.imgList.length - 1;
+          } else {
+            this.displayImg--;
+          }
+          this.style = "slide-left"
+        },
+        switchImg(index) {
+          this.displayImg = index;
+          this.style = "slide-right"
+        }
+      },
+      mounted() {
+        var timerId = setInterval(this.next, 5000)
+      }
+    });
+
+    new Vue({
+      el: '#app',
+      data: {
+        images: [
+          './images/carousel/09_carousel_01.jpg',
+          './images/carousel/09_carousel_02.jpg',
+          './images/carousel/09_carousel_03.jpg',
+          './images/carousel/09_carousel_04.jpg',
+          './images/carousel/09_carousel_05.jpg'
+        ]
+      },
+    });
+  </script>
+</body>
+
+</html>
