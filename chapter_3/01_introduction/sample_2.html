@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello, World!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button class="button" @click="add">クリック</button>
+      <div>{{ message }}</div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          message: "",
+          count: 0
+        },
+        methods: {
+          add() {
+            this.message = `ボタンを${++this.count}回クリックしました。`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
