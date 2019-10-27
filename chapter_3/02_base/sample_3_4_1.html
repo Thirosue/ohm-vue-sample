@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="([key, book] in orderd" :key="key">
+          {{ key }} : {{ book.value }}
+        </li>
+      </ul>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          book: {
+            // 各項目に並び順のorderを追加する
+            title: {
+              value:
+                "Pythonで機械学習入門 深層学習から敵対的生成ネットワークまで",
+              order: 6
+            },
+            author: { value: "大関 真之 著", order: 5 },
+            page: { value: 416, order: 4 },
+            publisher: { value: "オーム社", order: 3 },
+            ISBN: { value: "978-4-274-22286-3", order: 2 },
+            date: { value: "2019/05/31", order: 1 }
+          }
+        },
+        computed: {
+          orderd() {
+            // 表示順（order順）に並びかえる
+            return Object.entries(this.book).sort(
+              ([, book1], [, book2]) => book1.order - book2.order
+            );
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

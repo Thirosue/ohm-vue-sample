@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>sample</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
-    <button class="button" v-on:click="logging">logging</button>
-  </div>
-<script>
-new Vue({
-  el: '#app',
-  methods: {
-    logging(e) {
-      console.log(e);
-    }
-  }
-});
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button data-hello="私は1です" class="button" v-on:click="hello">
+        button1
+      </button>
+      <button data-hello="私は2です" class="button" v-on:click="hello">
+        button2
+      </button>
+      <button data-hello="私は3です" class="button" v-on:click="hello">
+        button3
+      </button>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        methods: {
+          hello(e) {
+            console.log(e);
+            alert(e.target.dataset.hello);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
