@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="app">
-  2019年
+  2020年
   <select v-model="month">
     <option v-for="value in 12">{{value}}</option>
   </select>
@@ -42,7 +42,7 @@ new Vue({
       if(!(value.month && value.day)) return; //両方選択された場合のみ日付チェック
       var month = ('00' + value.month).slice(-2);
       var day = ('00' + value.day).slice(-2);
-      var date = '2019' + month + day;
+      var date = '2020' + month + day;
       console.log('選択した日付 : ' + date);
       if(moment(date).isValid()) { //moment.jsを利用し、チェックを行う。
         this.msg = null;
