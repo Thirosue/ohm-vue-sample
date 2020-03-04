@@ -7,13 +7,13 @@
 </head>
 <body>
 <div id="app">
-  <div v-html="rowHtml"></div>
+  <div v-html="rawHtml"></div>
 </div>
 <script>
   new Vue({
     el: '#app',
     data: {
-      rowHtml: '<p><strong>Hello</strong> World!!</p>'
+      rawHtml: '<p><strong>Hello</strong> World!!</p>'
     }
   })
 </script>
