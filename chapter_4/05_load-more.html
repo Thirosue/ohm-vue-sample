@@ -66,7 +66,9 @@
         load: function () {
           var self = this;
           self.articles = self.articles.concat(thumbnailList.articles.slice(self.articles.length, self.articles.length + loadNum));
-          if (self.articles.length >= thumbnailList.count) self.hasNext = false;
+          if (self.articles.length >= thumbnailList.count) {
+            self.hasNext = false;
+          }
         }
       },
       mounted: function () {
