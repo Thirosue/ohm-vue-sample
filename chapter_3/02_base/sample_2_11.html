@@ -8,7 +8,9 @@
 <body>
 <div id="app">
   <p><a v-bind:href="book.url">{{book.title}}</a><p>
-  <span>{{book.author}}</span>
+  <p>
+    <span>{{book.author}}</span>
+  </p>
 </div>
 <script>
   new Vue({
@@ -20,7 +22,7 @@
         url: 'https://www.ohmsha.co.jp/book/9784274222863/'
       }
     }
-  })
+  });
 </script>
 </body>
 </html>

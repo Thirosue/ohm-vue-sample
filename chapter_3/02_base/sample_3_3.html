@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>sample</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
       <ul>
         <li v-for="cat in cats" :key="cat.id">
           {{ cat.name }}（{{ cat.type }}）
         </li>
       </ul>
-  </div>
-<script>
-new Vue({
-  el: '#app',
-  data: {
-    cats: [
-      { id: 1, name: 'かつお', type: 'ペルシャ' },
-      { id: 2, name: 'とら', type: 'ベンガル' }
-    ]
-  }
-});
-</script>
-</body>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          cats: [
+            { id: 1, name: "かつお", type: "ペルシャ" },
+            { id: 2, name: "とら", type: "ベンガル" }
+          ]
+        }
+      });
+    </script>
+  </body>
 </html>

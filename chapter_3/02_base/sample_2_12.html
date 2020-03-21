@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>sample</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-  <style type="text/css">
-    ul {
-      list-style-type: none;
-    }
-  </style>
-</head>
-<body>
-  <div id="app" class="container">
-    <ul>
-      <li><img :id="images[0].id" :src="images[0].src" class="image" :alt="images[0].alt" :width="images[0].width"></li>
-      <li><img :id="images[1].id" :src="images[1].src" class="image" :alt="images[1].alt" :width="images[1].width"></li>
-      <li><img :id="images[2].id" :src="images[2].src" class="image" :alt="images[2].alt" :width="images[2].width"></li>
-    </ul>
-  </div>
-  <script>
-  new Vue({
-    el: '#app',
-    data: {
-      images: [
-        { id: "image1", src: './img/sample1.png', alt: '画像1です' , width: "200" },
-        { id: "image2", src: './img/sample2.png', alt: '画像2です' , width: "100" },
-        { id: "image3", src: './img/sample3.png', alt: '画像3です' , width: "50" }
-      ]
-    }
-  })
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <style type="text/css">
+      ul {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <ul>
+        <li>
+          <img
+            :id="images[0].id"
+            :src="images[0].src"
+            class="image"
+            :alt="images[0].alt"
+            :width="images[0].width"
+          />
+        </li>
+        <li>
+          <img
+            :id="images[1].id"
+            :src="images[1].src"
+            class="image"
+            :alt="images[1].alt"
+            :width="images[1].width"
+          />
+        </li>
+        <li>
+          <img
+            :id="images[2].id"
+            :src="images[2].src"
+            class="image"
+            :alt="images[2].alt"
+            :width="images[2].width"
+          />
+        </li>
+      </ul>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          images: [
+            {
+              id: "image1",
+              src: "./img/sample1.png",
+              alt: "画像1です",
+              width: "200"
+            },
+            {
+              id: "image2",
+              src: "./img/sample2.png",
+              alt: "画像2です",
+              width: "100"
+            },
+            {
+              id: "image3",
+              src: "./img/sample3.png",
+              alt: "画像3です",
+              width: "50"
+            }
+          ]
+        }
+      });
+    </script>
+  </body>
 </html>

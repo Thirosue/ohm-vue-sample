@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>sample</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
-    <button @click="isActive = !isActive">切り替え</button>
-    <div v-show="isActive">アクティブです!</div>
-    <div v-show="!isActive" :style="{color: 'gray'}">...非アクティブ...</div>
-  </div>
-<script>
-    new Vue({
-      el: '#app',
-      data: {
-        isActive: true
-      }
-    })
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="isActive = !isActive">切り替え</button>
+      <div v-show="isActive">アクティブです!</div>
+      <div v-show="!isActive" :style="{color: 'gray'}">...非アクティブ...</div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          isActive: true
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

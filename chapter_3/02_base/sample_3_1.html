@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>sample</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-</head>
-<body>
-  <div id="app">
-    <button @click="mode += 1">切り替え</button>
-    <div v-if="mode%3===1">mode 1</div>
-    <div v-else-if="mode%3===2" :style="{color: 'red'}">mode 2</div>
-    <div v-else :style="{color: 'gray'}">...mode 3...</div>
-  </div>
-<script>
-    new Vue({
-      el: '#app',
-      data: {
-        mode: 1
-      }
-    })
+  <head>
+    <meta charset="UTF-8" />
+    <title>sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="mode += 1">切り替え</button>
+      <div v-if="mode%3===1">mode 1</div>
+      <div v-else-if="mode%3===2" :style="{color: 'red'}">mode 2</div>
+      <div v-else :style="{color: 'gray'}">...mode 3...</div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          mode: 1
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
